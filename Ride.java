@@ -6,6 +6,7 @@ public abstract class Ride implements IRide {
     private IDateTime dropoffTime;
     private IDriver driver;
 
+    //constructor
     public Ride(int rideId, String pickupLocation, IDateTime pickupTime, String dropoffLocation, IDateTime dropoffTime, IDriver driver) {
         this.rideId = rideId;
         this.pickupLocation = pickupLocation;
@@ -15,6 +16,7 @@ public abstract class Ride implements IRide {
         this.driver = driver;
     }
 
+    //setters and getters
     @Override
     public int getRideId() {
         return rideId;
@@ -60,19 +62,23 @@ public abstract class Ride implements IRide {
         this.driver = driver;
     }
 
+
+    //checks if a rider is part of the ride
     @Override
     public abstract boolean hasRider(int riderId);
     
+    //compares rides by pickup location
+    @Override
+    public int compareTo(IRide other) {
+        return this.pickupLocation.compareToIgnoreCase(other.getPickupLocation());
+    }
+
+    //returns ride info
     @Override
     public String toString() {
         return String.format("Ride ID: %d, Pickup: %s at %s, Dropoff: %s at %s, Driver: %s",
                 rideId, pickupLocation, pickupTime.format(), dropoffLocation, dropoffTime.format(),
                 driver != null ? driver.getName() : "No driver assigned");
-    }
-
-    @Override
-    public int compareTo(IRide other) {
-        return this.pickupLocation.compareToIgnoreCase(other.getPickupLocation());
     }
 
 }

@@ -1,15 +1,17 @@
-import java.util.LinkedList;
+
 
 public class RideList implements IRideList{
 
     private LinkedList<IRide> rides;
     private int count;
 
+    //constructor
     public RideList() {
         rides = new LinkedList<IRide>();
         count = 0;
     }
 
+    //adds a ride in alphabetical order
     @Override
     public boolean addRide(IRide ride){
 
@@ -28,7 +30,7 @@ public class RideList implements IRideList{
         boolean added=false;
 
         while(!rides.last()){
-            if(!added && ride.compareTo(ride.retrieve())<0){
+        	if(!added && ride.compareTo(rides.retrieve())<0){
                 sorted.insert(ride);
                 added=true;
             }
@@ -37,7 +39,7 @@ public class RideList implements IRideList{
             rides.findNext();
         }
 
-        if(!added && ride.compareTo(ride.retrieve())<0){
+        if(!added && ride.compareTo(rides.retrieve())<0){
                 sorted.insert(ride);
                 added=true;
         }
@@ -53,6 +55,7 @@ public class RideList implements IRideList{
 
     } 
 
+    //finds and removes a ride by id
     @Override
     public boolean removeRideById(int rideId){
 
@@ -81,15 +84,17 @@ public class RideList implements IRideList{
 
     }
 
+    //returns all rides in alphabetical order
     @Override 
     public LinkedList<IRide> getAllAlphabetically(){
         return rides;
     }
 
+    //finds rides by the given pickup location
     @Override 
     public LinkedList<IRide> findByPickupLocation(String pickupLocation){
 
-        LinkedList<IRide> result = new LinkedList<IRide>;
+        LinkedList<IRide> result = new LinkedList<IRide>();
 
         if(rides.empty())
             return result;
@@ -112,6 +117,7 @@ public class RideList implements IRideList{
             return result;
     }
 
+    //finds rides that include a rider with the given name
     @Override 
     public LinkedList<IRide> findByRiderName(String riderFullName){
 
@@ -172,6 +178,7 @@ public class RideList implements IRideList{
 
     }
 
+    //returns the number of rides
     @Override 
     public int size(){
         return count;
